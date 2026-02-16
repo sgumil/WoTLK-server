@@ -1,0 +1,5 @@
+.vscode/
+
+database/mysql_data/
+database/TDB_full_world_*.sql
+data/*

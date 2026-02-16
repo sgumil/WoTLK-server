@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  database:
+    image: mysql:8.4
+    container_name: wow-database
+    environment:
+      MYSQL_ROOT_PASSWORD: password123
+    volumes:
+      - ./database/mysql_data:/var/lib/mysql
+      - ./database/create_mysql.sql:/docker-entrypoint-initdb.d/create_mysql.sql
+    ports:
+      - "3306:3306"
+    networks:
+      - wow-network
+
+  authserver:
+    build: ./server
+    container_name: wow-auth
+    depends_on:
+      - database
+    command: [ "./wait-for-it.sh", "database:3306", "--", "./authserver" ]
+    volumes:
+      - ./server/etc:/opt/server/etc
+    ports:
+      - "3724:3724"
+    stdin_open: true
+    tty: true
+    networks:
+      - wow-network
+
+  worldserver:
+    build: ./server
+    container_name: wow-world
+    depends_on:
+      - database
+    command: [ "./wait-for-it.sh", "database:3306", "--", "./worldserver" ]
+    volumes:
+      - ./server/etc:/opt/server/etc
+      - ./data:/opt/server/data
+      - ./database/TDB_full_world_335.25101_2025_10_21.sql:/opt/server/bin/TDB_full_world_335.25101_2025_10_21.sql
+    ports:
+      - "8085:8085"
+    stdin_open: true
+    tty: true
+    networks:
+      - wow-network
+
+networks:
+  wow-network:
