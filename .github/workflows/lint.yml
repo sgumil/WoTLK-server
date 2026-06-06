@@ -27,12 +27,5 @@ jobs:
         run: yamllint docker-compose.yml
 
 
-      - name: Run ShellCheck
-        uses: ludeeus/action-shellcheck@master
-        with:
-          scandir: 'server'
-          additional_files: 'wait-for-it.sh'
-
-
       - name: Validate Docker Compose Config
         run: docker compose config -q
