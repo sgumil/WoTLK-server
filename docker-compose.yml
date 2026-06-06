@@ -20,7 +20,7 @@ services:
     container_name: wow-auth
     depends_on:
       - database
-    command: [ "./wait-for-it.sh", "database:3306", "--", "./authserver" ]
+    command: ["./wait-for-it.sh","database:3306","--","./authserver"]
     volumes:
       - ./server/etc:/opt/server/etc
     ports:
@@ -35,7 +35,7 @@ services:
     container_name: wow-world
     depends_on:
       - database
-    command: [ "./wait-for-it.sh", "database:3306", "--", "./worldserver" ]
+    command: ["./wait-for-it.sh","database:3306","--","./worldserver"]
     volumes:
       - ./server/etc:/opt/server/etc
       - ./data:/opt/server/data
