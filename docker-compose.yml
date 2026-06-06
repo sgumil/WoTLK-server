@@ -1,3 +1,4 @@
+---
 version: '3.8'
 
 services:
@@ -13,13 +14,27 @@ services:
       - "3306:3306"
     networks:
       - wow-network
+    healthcheck:
+      test:
+        - "CMD"
+        - "mysqladmin"
+        - "ping"
+        - "-h"
+        - "localhost"
+        - "-u"
+        - "root"
+        - "-ppassword123"
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   authserver:
     build: ./server
     container_name: wow-auth
     depends_on:
-      - database
-    command: [ "./wait-for-it.sh", "database:3306", "--", "./authserver" ]
+      database:
+        condition: service_healthy
+    command: ["./authserver"]
     volumes:
       - ./server/etc:/opt/server/etc
     ports:
@@ -33,8 +48,9 @@ services:
     build: ./server
     container_name: wow-world
     depends_on:
-      - database
-    command: [ "./wait-for-it.sh", "database:3306", "--", "./worldserver" ]
+      database:
+        condition: service_healthy
+    command: ["./worldserver"]
     volumes:
       - ./server/etc:/opt/server/etc
       - ./data:/opt/server/data
