@@ -1,4 +1,4 @@
-name: Lint & Code Quality
+name: Lint and code quality
 
 on:
   push:
