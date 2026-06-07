@@ -34,22 +34,16 @@ FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libmysqlclient21=8.0.35-1ubuntu1 \
-    libssl3=3.0.2-0ubuntu1.15 \
-    libboost-system1.74.0=1.74.0-13ubuntu1 \
-    libboost-filesystem1.74.0=1.74.0-13ubuntu1 \
-    libboost-program-options1.74.0=1.74.0-13ubuntu1 \
-    libboost-iostreams1.74.0=1.74.0-13ubuntu1 \
-    libboost-regex1.74.0=1.74.0-13ubuntu1 \
-    libboost-locale1.74.0=1.74.0-13ubuntu1 \
-    libboost-thread1.74.0=1.74.0-13ubuntu1 \
-    libboost-chrono1.74.0=1.74.0-13ubuntu1 \
-    libboost-date-time1.74.0=1.74.0-13ubuntu1 \
-    libreadline8=8.1-1ubuntu1 \
-    netcat=1.10-46.1ubuntu1 \
-    mariadb-client=1:10.6.12-1ubuntu0.1 \
-    p7zip-full=16.02+dfsg-8 \
-    dos2unix=7.4.0-1 \
+    libmysqlclient21 \
+    libssl3 \
+    libboost-system1.74.0 \
+    libboost-filesystem1.74.0 \
+    libboost-program-options1.74.0 \
+    libboost-thread1.74.0 \
+    libreadline8 \
+    netcat \
+    mariadb-client \
+    dos2unix \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /opt/server /opt/server
