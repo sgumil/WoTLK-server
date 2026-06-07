@@ -85,3 +85,5 @@ jobs:
             docker compose pull
             docker compose up -d --remove-orphans
             docker image prune -f
+            sleep 15
+            docker exec -i wow-database mysql -u root -ppassword123 -e "UPDATE auth.realmlist SET address = '${{ secrets.ORACLE_HOST }}' WHERE id = 1;"
