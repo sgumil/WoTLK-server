@@ -29,7 +29,7 @@ services:
       retries: 10
 
   authserver:
-    build: ./server
+    image: ghcr.io/sgumil/wotlk-server/wotlk-server:main
     container_name: wow-auth
     depends_on:
       database:
@@ -45,7 +45,7 @@ services:
       - wow-network
 
   worldserver:
-    build: ./server
+    image: ghcr.io/sgumil/wotlk-server/wotlk-server:main
     container_name: wow-world
     depends_on:
       database:
