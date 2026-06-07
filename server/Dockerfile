@@ -55,9 +55,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY --from=builder /opt/server /opt/server
 COPY --from=builder /source/sql /opt/server/sql
 
-COPY wait-for-it.sh /opt/server/bin/wait-for-it.sh
-RUN dos2unix /opt/server/bin/wait-for-it.sh && chmod +x /opt/server/bin/wait-for-it.sh
-
 WORKDIR /opt/server/bin
 
 # WorldServer
